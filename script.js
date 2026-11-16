@@ -1,38 +1,61 @@
 
-// LAMP LAB — COPY CODE FUNCTIONALITY
-
 document.querySelectorAll('.program').forEach(program => {
 
-    const copyButton = program.querySelector('.copy-btn');
-    const codeBlock = program.querySelector('pre code');
+    const button = program.querySelector('.copy-btn');
+    const code = program.querySelector('pre code');
 
-    if (!copyButton || !codeBlock) return;
+    if (!button || !code) return;
 
-    copyButton.addEventListener('click', async () => {
+    button.addEventListener('click', async function () {
 
-        const code = codeBlock.innerText;
+        const originalText = 'Copy Code';
+        const textToCopy = code.textContent;
 
         try {
-            await navigator.clipboard.writeText(code);
 
-            copyButton.textContent = '✓ Copied!';
-            copyButton.classList.add('copied');
+            if (navigator.clipboard && window.isSecureContext) {
 
-            setTimeout(() => {
-                copyButton.textContent = 'Copy Code';
-                copyButton.classList.remove('copied');
-            }, 2000);
+                await navigator.clipboard.writeText(textToCopy);
+
+            } else {
+
+                const textarea = document.createElement('textarea');
+
+                textarea.value = textToCopy;
+                textarea.style.position = 'fixed';
+                textarea.style.left = '-9999px';
+
+                document.body.appendChild(textarea);
+
+                textarea.select();
+
+                const successful = document.execCommand('copy');
+
+                textarea.remove();
+
+                if (!successful) {
+                    throw new Error('Copy failed');
+                }
+            }
+
+            button.textContent = '✓ Copied!';
+            button.classList.add('copied');
 
         } catch (error) {
-            copyButton.textContent = 'Copy failed';
 
-            setTimeout(() => {
-                copyButton.textContent = 'Copy Code';
-            }, 2000);
+            button.textContent = 'Copy Failed';
+
+            console.error('Copy error:', error);
+
         }
+
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove('copied');
+        }, 2000);
 
     });
 
 });
 
-console.log('LAMP LAB Copy Buttons Loaded!');
+console.log('LAMP LAB Copy System Ready!');
