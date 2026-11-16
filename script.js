@@ -1,66 +1,84 @@
 
-document.addEventListener('DOMContentLoaded', () => {
+// ========================================
+// LAMP LAB — WORKING COPY SYSTEM
+// ========================================
 
-    const buttons = document.querySelectorAll('.copy-btn');
+document.addEventListener('DOMContentLoaded', function () {
 
-    buttons.forEach((button) => {
+    const copyButtons = document.querySelectorAll('.copy-btn');
 
-        button.addEventListener('click', async () => {
+    copyButtons.forEach(function (button) {
+
+        button.addEventListener('click', async function () {
 
             const program = button.closest('.program');
             const codeElement = program.querySelector('pre code');
 
-            if (!codeElement) return;
+            if (!codeElement) {
+                return;
+            }
 
-            // Convert displayed HTML entities into original source code
-            const decoder = document.createElement('textarea');
-            decoder.innerHTML = codeElement.innerHTML;
+            // Get the actual source code
+            const code = codeElement.textContent;
 
-            const code = decoder.value;
+            const copyText = button.querySelector('.copy-text');
+            const originalText = 'Copy Code';
 
             try {
 
-                // Modern clipboard API
+                // Try modern clipboard API
                 if (navigator.clipboard && window.isSecureContext) {
+
                     await navigator.clipboard.writeText(code);
+
                 } else {
 
-                    // Fallback for older browsers
+                    // Fallback for unsupported browsers
                     const textarea = document.createElement('textarea');
 
                     textarea.value = code;
                     textarea.style.position = 'fixed';
-                    textarea.style.opacity = '0';
+                    textarea.style.left = '-9999px';
+                    textarea.style.top = '0';
 
                     document.body.appendChild(textarea);
+
+                    textarea.focus();
                     textarea.select();
 
-                    const copied = document.execCommand('copy');
+                    const successful = document.execCommand('copy');
 
-                    textarea.remove();
+                    document.body.removeChild(textarea);
 
-                    if (!copied) {
-                        throw new Error('Copy failed');
+                    if (!successful) {
+                        throw new Error('Clipboard copy failed');
                     }
                 }
 
-                button.textContent = '✓ Copied!';
+                // Success feedback
+                copyText.textContent = 'Copied!';
                 button.classList.add('copied');
 
             } catch (error) {
 
-                button.textContent = 'Copy Failed';
-                console.error(error);
+                console.error('Copy error:', error);
+
+                copyText.textContent = 'Failed!';
 
             }
 
-            setTimeout(() => {
-                button.textContent = 'Copy Code';
+            // Reset button
+            setTimeout(function () {
+
+                copyText.textContent = originalText;
                 button.classList.remove('copied');
+
             }, 2000);
 
         });
 
     });
+
+    console.log('LAMP LAB loaded successfully!');
 
 });
