@@ -4,34 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0b1020">
-    <title>LAMP LAB | PHP Programs</title>
+    <meta name="theme-color" content="#000000">
+
+    <title>LAMP LAB | PHP Practicals</title>
+
     <link rel="stylesheet" href="style.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="script.js" defer></script>
 </head>
+
 <body>
 
-<header>
+<header class="header">
     <a href="#" class="brand">LAMP<span>LAB.</span></a>
-    <span class="header-label">PHP PRACTICALS</span>
+    <span class="header-label">BCA / PHP PRACTICALS</span>
 </header>
 
 <main>
-    <div class="page-heading">
-        <p>PROGRAMMING LAB / BCA</p>
+
+    <section class="hero">
+        <p class="eyebrow">PROGRAMMING LAB / BCA</p>
         <h1>PHP Practical Programs</h1>
-        <span>Source code collection</span>
-    </div>
+        <p class="subtitle">A collection of practical programs and source codes.</p>
+        <div class="hero-line"></div>
+        <p class="program-count">05 PROGRAMS AVAILABLE</p>
+    </section>
+
 
     <!-- PROGRAM 01 -->
+
     <section class="program">
+
         <div class="program-heading">
-            <div>
+            <div class="program-info">
                 <span>PROGRAM 01</span>
                 <h2>Armstrong Number</h2>
             </div>
-            <button class="copy-btn" type="button">Copy Code</button>
+
+            <button class="copy-btn" type="button">
+                <span class="copy-icon">▢</span>
+                <span class="copy-text">Copy Code</span>
+            </button>
         </div>
+
         <pre><code>&lt;html&gt;
 &lt;body&gt;
 
@@ -70,17 +87,26 @@ if(isset($_POST['submit']))
 
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+
     </section>
 
+
     <!-- PROGRAM 02 -->
+
     <section class="program">
+
         <div class="program-heading">
-            <div>
+            <div class="program-info">
                 <span>PROGRAM 02</span>
                 <h2>Date Function</h2>
             </div>
-            <button class="copy-btn" type="button">Copy Code</button>
+
+            <button class="copy-btn" type="button">
+                <span class="copy-icon">▢</span>
+                <span class="copy-text">Copy Code</span>
+            </button>
         </div>
+
         <pre><code>&lt;?php
 
 date_default_timezone_set('Asia/Kolkata');
@@ -108,17 +134,26 @@ $b = date('l');
 echo "Today is $b&lt;br&gt;";
 
 ?&gt;</code></pre>
+
     </section>
 
+
     <!-- PROGRAM 03 -->
+
     <section class="program">
+
         <div class="program-heading">
-            <div>
+            <div class="program-info">
                 <span>PROGRAM 03</span>
                 <h2>Student Marks Array</h2>
             </div>
-            <button class="copy-btn" type="button">Copy Code</button>
+
+            <button class="copy-btn" type="button">
+                <span class="copy-icon">▢</span>
+                <span class="copy-text">Copy Code</span>
+            </button>
         </div>
+
         <pre><code>&lt;html&gt;
 &lt;body&gt;
 
@@ -162,17 +197,26 @@ foreach ($stdMarks as $std => $subjectArray)
 
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+
     </section>
 
+
     <!-- PROGRAM 04 -->
+
     <section class="program">
+
         <div class="program-heading">
-            <div>
+            <div class="program-info">
                 <span>PROGRAM 04</span>
                 <h2>Simple Calculator</h2>
             </div>
-            <button class="copy-btn" type="button">Copy Code</button>
+
+            <button class="copy-btn" type="button">
+                <span class="copy-icon">▢</span>
+                <span class="copy-text">Copy Code</span>
+            </button>
         </div>
+
         <pre><code>&lt;html&gt;
 
 &lt;?php
@@ -257,17 +301,26 @@ if (isset($_POST["operator"]))
 
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+
     </section>
 
+
     <!-- PROGRAM 05 -->
+
     <section class="program">
+
         <div class="program-heading">
-            <div>
+            <div class="program-info">
                 <span>PROGRAM 05</span>
                 <h2>POST Method &amp; Pyramid Pattern</h2>
             </div>
-            <button class="copy-btn" type="button">Copy Code</button>
+
+            <button class="copy-btn" type="button">
+                <span class="copy-icon">▢</span>
+                <span class="copy-text">Copy Code</span>
+            </button>
         </div>
+
         <pre><code>&lt;html&gt;
 &lt;body&gt;
 
@@ -326,12 +379,15 @@ if ($noOfLines and $symbol)
 
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+
     </section>
 
 </main>
 
-<footer>LAMP LAB © 2026</footer>
+<footer>
+    <p>LAMP LAB © 2026</p>
+    <span>BUILT FOR LEARNING.</span>
+</footer>
 
-<script src="script.js"></script>
 </body>
 </html>
