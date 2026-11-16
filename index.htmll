@@ -1,0 +1,696 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHP Practical Lab</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+    --bg: #0b1020;
+    --panel: #141c30;
+    --panel2: #1b2640;
+    --text: #edf2ff;
+    --muted: #98a6c5;
+    --accent: #8b9cff;
+    --border: #293550;
+    --green: #58d6a2;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    border-bottom: 1px solid var(--border);
+    padding: 19px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span { color: var(--accent); }
+
+.header-tag {
+    color: var(--muted);
+    font-size: 12px;
+    border: 1px solid var(--border);
+    padding: 7px 12px;
+    border-radius: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 55px 22px;
+}
+
+.hero { margin-bottom: 35px; }
+
+.eyebrow {
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 17px;
+}
+
+h1 {
+    font-size: clamp(32px, 6vw, 55px);
+    letter-spacing: -2px;
+    line-height: 1.15;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 600px;
+    font-size: 14px;
+}
+
+.stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 12px 17px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.stat strong { color: var(--text); }
+
+.layout {
+    display: grid;
+    grid-template-columns: 245px 1fr;
+    gap: 22px;
+    align-items: start;
+}
+
+.sidebar, .workspace {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+}
+
+.sidebar { padding: 17px; }
+
+.side-title {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin: 5px 9px 13px;
+}
+
+.nav-btn {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 13px 11px;
+    text-align: left;
+    border-radius: 9px;
+    cursor: pointer;
+    display: flex;
+    gap: 11px;
+    align-items: center;
+    font: 500 12px Inter;
+    margin-bottom: 4px;
+    transition: .2s;
+}
+
+.nav-btn:hover, .nav-btn.active {
+    background: var(--panel2);
+    color: white;
+}
+
+.nav-btn.active { box-shadow: inset 3px 0 var(--accent); }
+
+.num { color: var(--accent); font-family: monospace; }
+
+.workspace { padding: 27px; min-height: 480px; }
+
+.program { display: none; }
+.program.active { display: block; }
+
+.program-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.program-header small {
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.program-header h2 {
+    font-size: 24px;
+    margin: 9px 0;
+    letter-spacing: -.7px;
+}
+
+.program-header p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.form-card {
+    background: #10182b;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 17px;
+}
+
+label {
+    display: block;
+    color: #bdc9e3;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+input {
+    width: 100%;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    padding: 13px;
+    border-radius: 8px;
+    outline: none;
+    color: white;
+    font: 13px Inter;
+    margin-bottom: 17px;
+}
+
+input:focus { border-color: var(--accent); }
+
+.actions { display: flex; gap: 9px; flex-wrap: wrap; }
+
+button.action {
+    background: var(--accent);
+    color: #10152a;
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 19px;
+    font: 700 12px Inter;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button.action:hover { opacity: .85; transform: translateY(-1px); }
+
+button.secondary {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.result {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 17px;
+    margin-top: 17px;
+    min-height: 55px;
+    color: var(--green);
+    font-size: 13px;
+    line-height: 1.8;
+    display: none;
+    overflow-wrap: anywhere;
+}
+
+.result.show { display: block; }
+
+.result-title {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+}
+
+.marks-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.marks-table th, .marks-table td {
+    padding: 13px 9px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+.marks-table th { color: var(--accent); }
+
+.code-note {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 17px;
+    line-height: 1.7;
+}
+
+footer {
+    border-top: 1px solid var(--border);
+    padding: 23px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 45px;
+}
+
+@media(max-width: 750px) {
+    header { padding: 17px 20px; }
+    .container { padding: 35px 15px; }
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: flex; overflow-x: auto; gap: 5px; padding: 10px; }
+    .side-title { display: none; }
+    .nav-btn { min-width: max-content; width: auto; margin: 0; }
+    .workspace { padding: 19px; }
+    .num { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">LAMP<span>LAB.</span></div>
+    <div class="header-tag">PHP PRACTICALS · 2026</div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div class="eyebrow">PROGRAMMING LAB / BCA</div>
+        <h1>Learn. Run.<br>Understand.</h1>
+        <p>
+            An interactive PHP practical collection.
+            Explore programs, enter your own inputs and
+            see the output instantly.
+        </p>
+        <div class="stats">
+            <div class="stat"><strong>05</strong> Programs</div>
+            <div class="stat"><strong>05</strong> Interactive demos</div>
+            <div class="stat"><strong>100%</strong> Free</div>
+        </div>
+    </section>
+
+    <section class="layout">
+
+        <aside class="sidebar">
+            <div class="side-title">PROGRAMS</div>
+
+            <button class="nav-btn active" onclick="showProgram(0)">
+                <span class="num">01</span> Armstrong Number
+            </button>
+
+            <button class="nav-btn" onclick="showProgram(1)">
+                <span class="num">02</span> Date Function
+            </button>
+
+            <button class="nav-btn" onclick="showProgram(2)">
+                <span class="num">03</span> Student Marks Array
+            </button>
+
+            <button class="nav-btn" onclick="showProgram(3)">
+                <span class="num">04</span> Simple Calculator
+            </button>
+
+            <button class="nav-btn" onclick="showProgram(4)">
+                <span class="num">05</span> POST & Pyramid
+            </button>
+        </aside>
+
+        <section class="workspace">
+
+            <!-- PROGRAM 1 -->
+
+            <div class="program active">
+                <div class="program-header">
+                    <small>PROGRAM 01 / NUMBER LOGIC</small>
+                    <h2>Armstrong Number</h2>
+                    <p>Check whether a given three-digit number is an Armstrong number or not.</p>
+                </div>
+
+                <div class="form-card">
+                    <label>Enter a number</label>
+                    <input type="number" id="armInput" placeholder="Example: 153">
+                    <div class="actions">
+                        <button class="action" onclick="armstrong()">Check Number →</button>
+                        <button class="action secondary" onclick="clearResult('armInput','armResult')">Clear</button>
+                    </div>
+                    <div class="result" id="armResult"></div>
+                </div>
+                <p class="code-note">Logic: Separate each digit, cube it, add the cubes and compare the sum with the original number. This follows your supplied PHP program.</p>
+            </div>
+
+            <!-- PROGRAM 2 -->
+
+            <div class="program">
+                <div class="program-header">
+                    <small>PROGRAM 02 / DATE & TIME</small>
+                    <h2>Date Function</h2>
+                    <p>Demonstrate date functions by displaying current time, greeting, date and day.</p>
+                </div>
+
+                <div class="form-card">
+                    <label>Current system time (India)</label>
+                    <div class="actions">
+                        <button class="action" onclick="showDate()">Run Date Program →</button>
+                    </div>
+                    <div class="result" id="dateResult"></div>
+                </div>
+                <p class="code-note">Uses the Asia/Kolkata timezone, equivalent to the timezone setting in your PHP program.</p>
+            </div>
+
+            <!-- PROGRAM 3 -->
+
+            <div class="program">
+                <div class="program-header">
+                    <small>PROGRAM 03 / ARRAY CONCEPT</small>
+                    <h2>Student Marks Array</h2>
+                    <p>Demonstrate a multidimensional associative array containing marks of three students.</p>
+                </div>
+
+                <div class="form-card">
+                    <label>Student marks</label>
+                    <button class="action" onclick="showMarks()">Display Marks →</button>
+                    <div class="result" id="marksResult"></div>
+                </div>
+                <p class="code-note">Three students · Three subjects · Multidimensional associative array.</p>
+            </div>
+
+            <!-- PROGRAM 4 -->
+
+            <div class="program">
+                <div class="program-header">
+                    <small>PROGRAM 04 / ARITHMETIC</small>
+                    <h2>Simple Calculator</h2>
+                    <p>Perform basic arithmetic operations using two numbers and an operator.</p>
+                </div>
+
+                <div class="form-card">
+                    <label>First Number</label>
+                    <input type="number" id="firstNum" placeholder="Enter first number">
+
+                    <label>Second Number</label>
+                    <input type="number" id="secondNum" placeholder="Enter second number">
+
+                    <label>Select operation</label>
+                    <div class="actions">
+                        <button class="action" onclick="calculate('+')">+</button>
+                        <button class="action" onclick="calculate('-')">−</button>
+                        <button class="action" onclick="calculate('*')">×</button>
+                        <button class="action" onclick="calculate('/')">÷</button>
+                        <button class="action secondary" onclick="clearCalculator()">Clear</button>
+                    </div>
+
+                    <div class="result" id="calcResult"></div>
+                </div>
+            </div>
+
+            <!-- PROGRAM 5 -->
+
+            <div class="program">
+                <div class="program-header">
+                    <small>PROGRAM 05 / POST METHOD</small>
+                    <h2>Pyramid Pattern</h2>
+                    <p>Enter the number of lines and a symbol to generate a pyramid pattern.</p>
+                </div>
+
+                <div class="form-card">
+                    <label>Enter the number of lines</label>
+                    <input type="number" id="lineInput" min="1" max="30" placeholder="Example: 5">
+
+                    <label>Enter a symbol</label>
+                    <input type="text" id="symbolInput" maxlength="5" placeholder="Example: *">
+
+                    <div class="actions">
+                        <button class="action" onclick="generatePyramid()">Generate →</button>
+                        <button class="action secondary" onclick="clearResult('lineInput','pyramidResult');document.getElementById('symbolInput').value=''">Clear</button>
+                    </div>
+
+                    <div class="result" id="pyramidResult"></div>
+                </div>
+                <p class="code-note">The output follows the nested-loop logic of your original PHP program.</p>
+            </div>
+
+        </section>
+    </section>
+</main>
+
+<footer>
+    PHP PRACTICAL LAB · Built for learning and practice.
+</footer>
+
+<script>
+
+// NAVIGATION
+
+function showProgram(index) {
+    document.querySelectorAll('.program').forEach((p, i) => {
+        p.classList.toggle('active', i === index);
+    });
+
+    document.querySelectorAll('.nav-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === index);
+    });
+}
+
+// RESULT HELPER
+
+function displayResult(id, content) {
+    const box = document.getElementById(id);
+    box.innerHTML = '<div class="result-title">OUTPUT</div>' + content;
+    box.classList.add('show');
+}
+
+function clearResult(inputId, resultId) {
+    document.getElementById(inputId).value = '';
+    const result = document.getElementById(resultId);
+    result.classList.remove('show');
+    result.innerHTML = '';
+}
+
+// PROGRAM 1: ARMSTRONG
+
+function armstrong() {
+    const value = document.getElementById('armInput').value;
+
+    if (value.trim() === '' || !Number.isInteger(Number(value)) || Number(value) < 0) {
+        displayResult('armResult', 'Please enter a valid non-negative integer.');
+        return;
+    }
+
+    const a = Number(value);
+    let number = a;
+    let sum = 0;
+
+    while (number !== 0) {
+        const r = number % 10;
+        sum = sum + (r * r * r);
+        number = Math.floor(number / 10);
+    }
+
+    if (a === sum) {
+        displayResult('armResult', a + ' is an Armstrong number ✓');
+    } else {
+        displayResult('armResult', a + ' is not an Armstrong number.');
+    }
+}
+
+// PROGRAM 2: DATE FUNCTION
+
+function showDate() {
+    const now = new Date();
+
+    const time = new Intl.DateTimeFormat('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        hourCycle: 'h23'
+    }).format(now);
+
+    const hour = Number(new Intl.DateTimeFormat('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        hourCycle: 'h23'
+    }).format(now));
+
+    let greeting;
+
+    if (hour >= 0 && hour <= 5)
+        greeting = "It's Late Night";
+    else if (hour >= 6 && hour <= 11)
+        greeting = "Good Morning";
+    else if (hour >= 12 && hour <= 16)
+        greeting = "Good Afternoon";
+    else
+        greeting = "Good Evening";
+
+    const date = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kolkata',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }).format(now);
+
+    const day = new Intl.DateTimeFormat('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        weekday: 'long'
+    }).format(now);
+
+    displayResult('dateResult',
+        'Current time is: ' + time +
+        '<br>' + greeting +
+        '<br>Today\'s Date is ' + date +
+        '<br>Today is ' + day
+    );
+}
+
+// PROGRAM 3: ARRAY
+
+function showMarks() {
+    const stdMarks = {
+        Ramesh: {
+            Java: 88,
+            Php: 98,
+            Networking: 78
+        },
+        Suresh: {
+            Java: 83,
+            Php: 90,
+            Networking: 82
+        },
+        Kishan: {
+            Java: 85,
+            Php: 90,
+            Networking: 79
+        }
+    };
+
+    let output = '<table class="marks-table">';
+    output += '<tr><th>Student</th><th>Java</th><th>PHP</th><th>Networking</th></tr>';
+
+    for (const student in stdMarks) {
+        output += '<tr><td>' + student + '</td>';
+
+        for (const subject in stdMarks[student]) {
+            output += '<td>' + stdMarks[student][subject] + '</td>';
+        }
+
+        output += '</tr>';
+    }
+
+    output += '</table>';
+
+    displayResult('marksResult', output);
+}
+
+// PROGRAM 4: CALCULATOR
+
+function calculate(operator) {
+    const first = document.getElementById('firstNum').value;
+    const second = document.getElementById('secondNum').value;
+
+    if (first.trim() === '' || second.trim() === '') {
+        displayResult('calcResult', 'Enter valid numbers.');
+        return;
+    }
+
+    const a = Number(first);
+    const b = Number(second);
+
+    if (!Number.isFinite(a) || !Number.isFinite(b)) {
+        displayResult('calcResult', 'Enter valid numbers.');
+        return;
+    }
+
+    let result;
+
+    switch (operator) {
+        case '+':
+            result = a + b;
+            break;
+        case '-':
+            result = a - b;
+            break;
+        case '*':
+            result = a * b;
+            break;
+        case '/':
+            if (b === 0) {
+                result = 'Cannot divide by 0';
+            } else {
+                result = a / b;
+            }
+            break;
+    }
+
+    displayResult('calcResult', 'Result: ' + result);
+}
+
+function clearCalculator() {
+    document.getElementById('firstNum').value = '';
+    document.getElementById('secondNum').value = '';
+    document.getElementById('calcResult').classList.remove('show');
+}
+
+// PROGRAM 5: PYRAMID
+
+function generatePyramid() {
+    const lines = Number(document.getElementById('lineInput').value);
+    const symbol = document.getElementById('symbolInput').value;
+
+    if (!Number.isInteger(lines) || lines < 1 || lines > 30 || !symbol.trim()) {
+        displayResult('pyramidResult', 'Enter valid lines (1–30) and a symbol.');
+        return;
+    }
+
+    let output = '';
+
+    for (let i = 0; i < lines; i++) {
+        for (let j = 0; j < i + 1; j++) {
+            output += symbol;
+        }
+        output += '\n';
+    }
+
+    displayResult('pyramidResult',
+        '<pre style="font-family:monospace;white-space:pre-wrap;font-size:16px;color:#58d6a2;">' +
+        output.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+        '</pre>'
+    );
+}
+
+</script>
+
+</body>
+</html>
