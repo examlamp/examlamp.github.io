@@ -23,10 +23,14 @@
         <span>Source code collection</span>
     </div>
 
+    <!-- PROGRAM 01 -->
     <section class="program">
         <div class="program-heading">
-            <span>PROGRAM 01</span>
-            <h2>Armstrong Number</h2>
+            <div>
+                <span>PROGRAM 01</span>
+                <h2>Armstrong Number</h2>
+            </div>
+            <button class="copy-btn" type="button">Copy Code</button>
         </div>
         <pre><code>&lt;html&gt;
 &lt;body&gt;
@@ -68,10 +72,14 @@ if(isset($_POST['submit']))
 &lt;/html&gt;</code></pre>
     </section>
 
+    <!-- PROGRAM 02 -->
     <section class="program">
         <div class="program-heading">
-            <span>PROGRAM 02</span>
-            <h2>Date Function</h2>
+            <div>
+                <span>PROGRAM 02</span>
+                <h2>Date Function</h2>
+            </div>
+            <button class="copy-btn" type="button">Copy Code</button>
         </div>
         <pre><code>&lt;?php
 
@@ -102,10 +110,14 @@ echo "Today is $b&lt;br&gt;";
 ?&gt;</code></pre>
     </section>
 
+    <!-- PROGRAM 03 -->
     <section class="program">
         <div class="program-heading">
-            <span>PROGRAM 03</span>
-            <h2>Student Marks Array</h2>
+            <div>
+                <span>PROGRAM 03</span>
+                <h2>Student Marks Array</h2>
+            </div>
+            <button class="copy-btn" type="button">Copy Code</button>
         </div>
         <pre><code>&lt;html&gt;
 &lt;body&gt;
@@ -152,10 +164,14 @@ foreach ($stdMarks as $std => $subjectArray)
 &lt;/html&gt;</code></pre>
     </section>
 
+    <!-- PROGRAM 04 -->
     <section class="program">
         <div class="program-heading">
-            <span>PROGRAM 04</span>
-            <h2>Simple Calculator</h2>
+            <div>
+                <span>PROGRAM 04</span>
+                <h2>Simple Calculator</h2>
+            </div>
+            <button class="copy-btn" type="button">Copy Code</button>
         </div>
         <pre><code>&lt;html&gt;
 
@@ -243,10 +259,14 @@ if (isset($_POST["operator"]))
 &lt;/html&gt;</code></pre>
     </section>
 
+    <!-- PROGRAM 05 -->
     <section class="program">
         <div class="program-heading">
-            <span>PROGRAM 05</span>
-            <h2>POST Method &amp; Pyramid Pattern</h2>
+            <div>
+                <span>PROGRAM 05</span>
+                <h2>POST Method &amp; Pyramid Pattern</h2>
+            </div>
+            <button class="copy-btn" type="button">Copy Code</button>
         </div>
         <pre><code>&lt;html&gt;
 &lt;body&gt;
@@ -291,9 +311,9 @@ if (isset($_POST["submit"]))
 
 if ($noOfLines and $symbol)
 {
-    for ($i = 0; $i &lt; $noOfLines; $i++)
+    for ($i = 0; $i < $noOfLines; $i++)
     {
-        for ($j = 0; $j &lt; $i + 1; $j++)
+        for ($j = 0; $j < $i + 1; $j++)
         {
             echo "&lt;b&gt;$symbol&lt;/b&gt;";
         }
@@ -312,5 +332,6 @@ if ($noOfLines and $symbol)
 
 <footer>LAMP LAB © 2026</footer>
 
+<script src="script.js"></script>
 </body>
 </html>
