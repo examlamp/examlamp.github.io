@@ -5,264 +5,312 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0b1020">
-    <title>LAMP LAB — Practical Locker</title>
+    <title>LAMP LAB | PHP Programs</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<header class="topbar">
-    <a href="#" class="brand">
-        <span class="brand-icon">&lt;/&gt;</span>
-        <span>LAMP<span class="brand-accent">LAB</span></span>
-    </a>
-
-    <div class="top-right">
-        <span class="status-dot"></span>
-        <span class="top-label">PRACTICAL PREPARATION</span>
-    </div>
+<header>
+    <a href="#" class="brand">LAMP<span>LAB.</span></a>
+    <span class="header-label">PHP PRACTICALS</span>
 </header>
 
-<div class="page-wrapper">
+<main>
+    <div class="page-heading">
+        <p>PROGRAMMING LAB / BCA</p>
+        <h1>PHP Practical Programs</h1>
+        <span>Source code collection</span>
+    </div>
 
-    <section class="hero">
-        <div class="hero-tag">BCA · LAMP PRACTICALS</div>
-        <h1>Your Practical Lab.<br><span>One Place.</span></h1>
-        <p>Explore programs, understand the logic, experiment with inputs and practice for your practical examinations.</p>
-
-        <div class="hero-stats">
-            <div><strong>05</strong><span>Programs</span></div>
-            <div><strong>05</strong><span>Interactive demos</span></div>
-            <div><strong>100%</strong><span>Free access</span></div>
+    <section class="program">
+        <div class="program-heading">
+            <span>PROGRAM 01</span>
+            <h2>Armstrong Number</h2>
         </div>
+        <pre><code>&lt;html&gt;
+&lt;body&gt;
+
+&lt;form method="post"&gt;
+    Enter Number:
+    &lt;input type="text" name="number"&gt;
+    &lt;input type="submit" name="submit" value="Submit"&gt;
+&lt;/form&gt;
+
+&lt;?php
+
+if(isset($_POST['submit']))
+{
+    $a = $_POST['number'];
+    $number = $a;
+    $sum = 0;
+
+    while($number != 0)
+    {
+        $r = $number % 10;
+        $sum = $sum + ($r * $r * $r);
+        $number = (int)($number / 10);
+    }
+
+    if($a == $sum)
+    {
+        echo $a . " is an Armstrong number";
+    }
+    else
+    {
+        echo $a . " is not an Armstrong number";
+    }
+}
+
+?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </section>
 
-    <main class="dashboard">
+    <section class="program">
+        <div class="program-heading">
+            <span>PROGRAM 02</span>
+            <h2>Date Function</h2>
+        </div>
+        <pre><code>&lt;?php
 
-        <aside class="sidebar">
-            <div class="sidebar-heading">WORKSPACE</div>
+date_default_timezone_set('Asia/Kolkata');
 
-            <div class="nav-list">
-                <button class="nav-btn active" data-program="0">
-                    <span class="nav-number">01</span>
-                    Armstrong Number
-                </button>
+$time = date('G:i');
+echo "Current time is: $time&lt;br&gt;";
 
-                <button class="nav-btn" data-program="1">
-                    <span class="nav-number">02</span>
-                    Date Function
-                </button>
+$a = date('G');
 
-                <button class="nav-btn" data-program="2">
-                    <span class="nav-number">03</span>
-                    Student Marks Array
-                </button>
+if($a >= 0 && $a <= 5)
+    echo "It's Late Night";
+else if($a >= 6 && $a <= 11)
+    echo "Good Morning";
+else if($a >= 12 && $a <= 16)
+    echo "Good Afternoon";
+else if($a >= 17 && $a <= 23)
+    echo "Good Evening";
 
-                <button class="nav-btn" data-program="3">
-                    <span class="nav-number">04</span>
-                    Simple Calculator
-                </button>
+echo "&lt;br&gt;";
 
-                <button class="nav-btn" data-program="4">
-                    <span class="nav-number">05</span>
-                    POST & Pyramid
-                </button>
-            </div>
+$date = date('d-m-Y');
+echo "Today's Date is $date&lt;br&gt;";
 
-            <div class="sidebar-footer">
-                <span class="status-dot"></span>
-                All programs ready
-            </div>
-        </aside>
+$b = date('l');
+echo "Today is $b&lt;br&gt;";
 
-        <section class="main-content">
+?&gt;</code></pre>
+    </section>
 
-            <div class="content-top">
-                <div>
-                    <div class="breadcrumb">WORKSPACE / PHP</div>
-                    <h2>Practical Programs</h2>
-                </div>
-                <span class="language-badge">PHP LAB</span>
-            </div>
+    <section class="program">
+        <div class="program-heading">
+            <span>PROGRAM 03</span>
+            <h2>Student Marks Array</h2>
+        </div>
+        <pre><code>&lt;html&gt;
+&lt;body&gt;
 
-            <!-- PROGRAM 1 -->
+&lt;h2&gt;Student Marks&lt;/h2&gt;
 
-            <article class="program active" id="program-0">
-                <div class="program-heading">
-                    <span class="program-label">PROGRAM 01 · NUMBER LOGIC</span>
-                    <h3>Armstrong Number</h3>
-                    <p>Check whether a given three-digit number is an Armstrong number or not.</p>
-                </div>
+&lt;?php
 
-                <div class="demo-card">
-                    <div class="card-heading">
-                        <span class="card-dot"></span>
-                        LIVE PROGRAM
-                    </div>
+$stdMarks = array(
+    "Ramesh" => array(
+        "Java" => 88,
+        "Php" => 98,
+        "Networking" => 78
+    ),
 
-                    <label for="armInput">Enter Number</label>
-                    <input type="number" id="armInput" placeholder="Example: 153">
+    "Suresh" => array(
+        "Java" => 83,
+        "Php" => 90,
+        "Networking" => 82
+    ),
 
-                    <div class="button-row">
-                        <button class="primary-btn" id="armBtn">Check Number <span>→</span></button>
-                        <button class="secondary-btn" data-clear="armInput" data-result="armResult">Clear</button>
-                    </div>
+    "Kishan" => array(
+        "Java" => 85,
+        "Php" => 90,
+        "Networking" => 79
+    )
+);
 
-                    <div class="result-box" id="armResult" aria-live="polite"></div>
-                </div>
+foreach ($stdMarks as $std => $subjectArray)
+{
+    echo "Marks of $std:&lt;br&gt;";
 
-                <div class="info-card">
-                    <strong>How it works</strong>
-                    <p>Each digit is separated, cubed and added. The sum is compared with the original number.</p>
-                </div>
-            </article>
+    foreach ($subjectArray as $subject => $marks)
+    {
+        echo "$subject = $marks &lt;br&gt;";
+    }
 
-            <!-- PROGRAM 2 -->
+    echo "&lt;br&gt;&lt;br&gt;";
+}
 
-            <article class="program" id="program-1">
-                <div class="program-heading">
-                    <span class="program-label">PROGRAM 02 · DATE & TIME</span>
-                    <h3>Date Function</h3>
-                    <p>Demonstrate the date function by displaying current time, greeting, date and day.</p>
-                </div>
+?&gt;
 
-                <div class="demo-card">
-                    <div class="card-heading">
-                        <span class="card-dot"></span>
-                        LIVE PROGRAM
-                    </div>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
 
-                    <div class="date-preview">
-                        <span>INDIAN STANDARD TIME</span>
-                        <strong id="liveClock">--:--</strong>
-                        <small id="liveDate">Loading date...</small>
-                    </div>
+    <section class="program">
+        <div class="program-heading">
+            <span>PROGRAM 04</span>
+            <h2>Simple Calculator</h2>
+        </div>
+        <pre><code>&lt;html&gt;
 
-                    <button class="primary-btn" id="dateBtn">Run Date Program <span>→</span></button>
+&lt;?php
 
-                    <div class="result-box" id="dateResult" aria-live="polite"></div>
-                </div>
+$first_num = "";
+$second_num = "";
+$result = "";
 
-                <div class="info-card">
-                    <strong>How it works</strong>
-                    <p>Uses date formatting and the Asia/Kolkata timezone to display time, date and day.</p>
-                </div>
-            </article>
+if (isset($_POST["operator"]))
+{
+    $first_num = $_POST["first_num"];
+    $second_num = $_POST["second_num"];
+    $operator = $_POST["operator"];
 
-            <!-- PROGRAM 3 -->
+    if (is_numeric($first_num) && is_numeric($second_num))
+    {
+        switch ($operator)
+        {
+            case "+":
+                $result = $first_num + $second_num;
+                break;
 
-            <article class="program" id="program-2">
-                <div class="program-heading">
-                    <span class="program-label">PROGRAM 03 · ARRAY CONCEPT</span>
-                    <h3>Student Marks Array</h3>
-                    <p>Store and display marks of three students in three subjects using an associative array.</p>
-                </div>
+            case "-":
+                $result = $first_num - $second_num;
+                break;
 
-                <div class="demo-card">
-                    <div class="card-heading">
-                        <span class="card-dot"></span>
-                        STUDENT RECORDS
-                    </div>
+            case "*":
+                $result = $first_num * $second_num;
+                break;
 
-                    <button class="primary-btn" id="marksBtn">Display Student Marks <span>→</span></button>
+            case "/":
+                if ($second_num == 0)
+                {
+                    $result = "Cannot divide by 0";
+                }
+                else
+                {
+                    $result = $first_num / $second_num;
+                }
+                break;
+        }
+    }
+    else
+    {
+        $result = "Enter valid numbers";
+    }
+}
 
-                    <div class="result-box" id="marksResult" aria-live="polite"></div>
-                </div>
+?&gt;
 
-                <div class="info-card">
-                    <strong>How it works</strong>
-                    <p>A multidimensional associative array stores each student's marks under their name and subject.</p>
-                </div>
-            </article>
+&lt;body&gt;
 
-            <!-- PROGRAM 4 -->
+&lt;h1&gt;PHP Simple Calculator&lt;/h1&gt;
 
-            <article class="program" id="program-3">
-                <div class="program-heading">
-                    <span class="program-label">PROGRAM 04 · ARITHMETIC</span>
-                    <h3>Simple Calculator</h3>
-                    <p>Perform addition, subtraction, multiplication and division using two numbers.</p>
-                </div>
+&lt;form action="" method="post"&gt;
 
-                <div class="demo-card">
-                    <div class="card-heading">
-                        <span class="card-dot"></span>
-                        CALCULATOR
-                    </div>
+    &lt;p&gt;
+        &lt;b&gt;First Number:&lt;/b&gt;
+        &lt;input type="number" name="first_num"
+        value="&lt;?php echo $first_num; ?&gt;" required&gt;
+    &lt;/p&gt;
 
-                    <label for="firstNum">First Number</label>
-                    <input type="number" id="firstNum" placeholder="Enter first number" step="any">
+    &lt;p&gt;
+        &lt;b&gt;Second Number:&lt;/b&gt;
+        &lt;input type="number" name="second_num"
+        value="&lt;?php echo $second_num; ?&gt;" required&gt;
+    &lt;/p&gt;
 
-                    <label for="secondNum">Second Number</label>
-                    <input type="number" id="secondNum" placeholder="Enter second number" step="any">
+    &lt;p&gt;
+        &lt;b&gt;Result:&lt;/b&gt;
+        &lt;input type="text" name="result"
+        value="&lt;?php echo $result; ?&gt;" readonly&gt;
+    &lt;/p&gt;
 
-                    <label>Select Operation</label>
+    &lt;input type="submit" value="+" name="operator"&gt;
+    &lt;input type="submit" value="-" name="operator"&gt;
+    &lt;input type="submit" value="*" name="operator"&gt;
+    &lt;input type="submit" value="/" name="operator"&gt;
+    &lt;input type="submit" value="Clear" name="clear"&gt;
 
-                    <div class="operator-row">
-                        <button class="operator-btn" data-operator="+">+</button>
-                        <button class="operator-btn" data-operator="-">−</button>
-                        <button class="operator-btn" data-operator="*">×</button>
-                        <button class="operator-btn" data-operator="/">÷</button>
-                    </div>
+&lt;/form&gt;
 
-                    <div class="result-box" id="calcResult" aria-live="polite"></div>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
 
-                    <button class="secondary-btn" id="calcClear">Clear Calculator</button>
-                </div>
-            </article>
+    <section class="program">
+        <div class="program-heading">
+            <span>PROGRAM 05</span>
+            <h2>POST Method &amp; Pyramid Pattern</h2>
+        </div>
+        <pre><code>&lt;html&gt;
+&lt;body&gt;
 
-            <!-- PROGRAM 5 -->
+&lt;?php
 
-            <article class="program" id="program-4">
-                <div class="program-heading">
-                    <span class="program-label">PROGRAM 05 · POST METHOD</span>
-                    <h3>Pyramid Pattern</h3>
-                    <p>Enter the number of lines and a symbol to generate a pyramid pattern.</p>
-                </div>
+$noOfLines = "";
+$symbol = "";
 
-                <div class="demo-card">
-                    <div class="card-heading">
-                        <span class="card-dot"></span>
-                        PATTERN GENERATOR
-                    </div>
+if (isset($_POST["submit"]))
+{
+    $noOfLines = $_POST["line"];
+    $symbol = $_POST["symbol"];
+}
 
-                    <label for="lineInput">Number of Lines</label>
-                    <input type="number" id="lineInput" min="1" max="30" placeholder="Example: 5">
+?&gt;
 
-                    <label for="symbolInput">Enter Symbol</label>
-                    <input type="text" id="symbolInput" maxlength="5" placeholder="Example: *">
+&lt;h2&gt;Pyramid&lt;/h2&gt;
 
-                    <div class="button-row">
-                        <button class="primary-btn" id="pyramidBtn">Generate Pattern <span>→</span></button>
-                        <button class="secondary-btn" id="pyramidClear">Clear</button>
-                    </div>
+&lt;form method="post"&gt;
 
-                    <div class="result-box" id="pyramidResult" aria-live="polite"></div>
-                </div>
+    Enter the loop number:
+    &lt;input type="number" name="line" required
+    value="&lt;?php echo $noOfLines; ?&gt;"&gt;
 
-                <div class="info-card">
-                    <strong>How it works</strong>
-                    <p>Two nested loops generate each line and repeat the selected symbol.</p>
-                </div>
-            </article>
+    &lt;br&gt;&lt;br&gt;
 
-            <div class="bottom-navigation">
-                <span>PHP PRACTICAL LAB</span>
-                <span>BUILT FOR LEARNING.</span>
-            </div>
+    Enter the Symbol:
+    &lt;input type="text" name="symbol" required
+    value="&lt;?php echo $symbol; ?&gt;"&gt;
 
-        </section>
-    </main>
+    &lt;br&gt;&lt;br&gt;
 
-    <footer>
-        <span>LAMP LAB © 2026</span>
-        <span>Learn · Practice · Improve</span>
-    </footer>
+    &lt;input type="submit" value="Submit" name="submit"&gt;
+    &lt;input type="submit" value="Clear" name="clr"&gt;
 
-</div>
+    &lt;br&gt;&lt;br&gt;
 
-<script src="script.js"></script>
+&lt;/form&gt;
+
+&lt;?php
+
+if ($noOfLines and $symbol)
+{
+    for ($i = 0; $i &lt; $noOfLines; $i++)
+    {
+        for ($j = 0; $j &lt; $i + 1; $j++)
+        {
+            echo "&lt;b&gt;$symbol&lt;/b&gt;";
+        }
+
+        echo "&lt;br&gt;";
+    }
+}
+
+?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+</main>
+
+<footer>LAMP LAB © 2026</footer>
+
 </body>
 </html>
