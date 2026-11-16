@@ -1,61 +1,66 @@
 
-document.querySelectorAll('.program').forEach(program => {
+document.addEventListener('DOMContentLoaded', () => {
 
-    const button = program.querySelector('.copy-btn');
-    const code = program.querySelector('pre code');
+    const buttons = document.querySelectorAll('.copy-btn');
 
-    if (!button || !code) return;
+    buttons.forEach((button) => {
 
-    button.addEventListener('click', async function () {
+        button.addEventListener('click', async () => {
 
-        const originalText = 'Copy Code';
-        const textToCopy = code.textContent;
+            const program = button.closest('.program');
+            const codeElement = program.querySelector('pre code');
 
-        try {
+            if (!codeElement) return;
 
-            if (navigator.clipboard && window.isSecureContext) {
+            // Convert displayed HTML entities into original source code
+            const decoder = document.createElement('textarea');
+            decoder.innerHTML = codeElement.innerHTML;
 
-                await navigator.clipboard.writeText(textToCopy);
+            const code = decoder.value;
 
-            } else {
+            try {
 
-                const textarea = document.createElement('textarea');
+                // Modern clipboard API
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(code);
+                } else {
 
-                textarea.value = textToCopy;
-                textarea.style.position = 'fixed';
-                textarea.style.left = '-9999px';
+                    // Fallback for older browsers
+                    const textarea = document.createElement('textarea');
 
-                document.body.appendChild(textarea);
+                    textarea.value = code;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
 
-                textarea.select();
+                    document.body.appendChild(textarea);
+                    textarea.select();
 
-                const successful = document.execCommand('copy');
+                    const copied = document.execCommand('copy');
 
-                textarea.remove();
+                    textarea.remove();
 
-                if (!successful) {
-                    throw new Error('Copy failed');
+                    if (!copied) {
+                        throw new Error('Copy failed');
+                    }
                 }
+
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+
+            } catch (error) {
+
+                button.textContent = 'Copy Failed';
+                console.error(error);
+
             }
 
-            button.textContent = '✓ Copied!';
-            button.classList.add('copied');
+            setTimeout(() => {
+                button.textContent = 'Copy Code';
+                button.classList.remove('copied');
+            }, 2000);
 
-        } catch (error) {
-
-            button.textContent = 'Copy Failed';
-
-            console.error('Copy error:', error);
-
-        }
-
-        setTimeout(() => {
-            button.textContent = originalText;
-            button.classList.remove('copied');
-        }, 2000);
+        });
 
     });
 
 });
-
-console.log('LAMP LAB Copy System Ready!');
